@@ -98,6 +98,26 @@
       #include <SPI.h>
       #include <Wire.h>
     #endif
+  #elif defined(DRV_DISP_ADAGFX_SH1106G) 
+    // https://github.com/adafruit/Adafruit_SH110x
+    #define DRV_COLORMODE_MONO // Monochrome display
+    #include <Adafruit_SH110X.h>
+    #if !defined(DRV_DISP_ADAGFX_SH1106G_I2C)
+      // defaults to SPI mode for backward compatibility
+      #define DRV_DISP_ADAGFX_SH1106G_SPI 
+      #include <SPI.h>
+      #include <Wire.h>
+    #endif
+  #elif defined(DRV_DISP_ADAGFX_SH1107) 
+    // https://github.com/adafruit/Adafruit_SH110x
+    #define DRV_COLORMODE_MONO // Monochrome display
+    #include <Adafruit_SH110X.h>
+    #if !defined(DRV_DISP_ADAGFX_SH1107_I2C)
+      // defaults to SPI mode for backward compatibility
+      #define DRV_DISP_ADAGFX_SH1107_SPI 
+      #include <SPI.h>
+      #include <Wire.h>
+    #endif
   #elif defined(DRV_DISP_ADAGFX_ST7735)
     // https://github.com/adafruit/Adafruit-ST7735-Library
     #include <Adafruit_ST7735.h>
@@ -338,6 +358,36 @@ extern "C" {
 #elif defined(DRV_DISP_ADAGFX_SSD1306_I2C)
     const char* m_acDrvDisp = "ADA_SSD1306(I2C)";
     Adafruit_SSD1306 m_disp(DRV_DISP_ADAGFX_SSD1306_INIT,&Wire,ADAGFX_PIN_RST);
+
+// ------------------------------------------------------------------------
+#elif defined(DRV_DISP_ADAGFX_SH1106G_SPI)
+
+  #if (ADAGFX_SPI_HW) //  Use hardware SPI or software SPI (with custom pins)
+    const char* m_acDrvDisp = "ADA_SH1106G(SPI-HW)";
+    Adafruit_SH1106G m_disp(DRV_DISP_ADAGFX_SH1106G_INIT,&SPI,ADAGFX_PIN_DC, ADAGFX_PIN_RST, ADAGFX_PIN_CS);
+  #else
+    const char* m_acDrvDisp = "ADA_SH1106G(SPI-SW)";
+    Adafruit_SH1106G m_disp(DRV_DISP_ADAGFX_SH1106G_INIT,ADAGFX_PIN_MOSI, ADAGFX_PIN_CLK, ADAGFX_PIN_DC, ADAGFX_PIN_RST, ADAGFX_PIN_CS);
+  #endif
+
+#elif defined(DRV_DISP_ADAGFX_SH1106G_I2C)
+    const char* m_acDrvDisp = "ADA_SH1106G(I2C)";
+    Adafruit_SH1106G m_disp(DRV_DISP_ADAGFX_SH1106G_INIT,&Wire,ADAGFX_PIN_RST);
+
+// ------------------------------------------------------------------------
+#elif defined(DRV_DISP_ADAGFX_SH1107_SPI)
+
+  #if (ADAGFX_SPI_HW) //  Use hardware SPI or software SPI (with custom pins)
+    const char* m_acDrvDisp = "ADA_SH1107(SPI-HW)";
+    Adafruit_SH1107 m_disp(DRV_DISP_ADAGFX_SH1107_INIT,&SPI,ADAGFX_PIN_DC, ADAGFX_PIN_RST, ADAGFX_PIN_CS);
+  #else
+    const char* m_acDrvDisp = "ADA_SH1106G(SPI-SW)";
+    Adafruit_SH1107 m_disp(DRV_DISP_ADAGFX_SH1107_INIT,ADAGFX_PIN_MOSI, ADAGFX_PIN_CLK, ADAGFX_PIN_DC, ADAGFX_PIN_RST, ADAGFX_PIN_CS);
+  #endif
+
+#elif defined(DRV_DISP_ADAGFX_SH1107_I2C)
+    const char* m_acDrvDisp = "ADA_SH1107(I2C)";
+    Adafruit_SH1107 m_disp(DRV_DISP_ADAGFX_SH1107_INIT,&Wire,ADAGFX_PIN_RST);
 
 // ------------------------------------------------------------------------
 #elif defined(DRV_DISP_ADAGFX_ST7735)
