@@ -3246,6 +3246,20 @@ bool gslc_DrvRotate(gslc_tsGui* pGui, uint8_t nRotation)
     pGui->nDispW = SSD1306_LCDWIDTH;
     pGui->nDispH = SSD1306_LCDHEIGHT;
 
+  #elif defined(DRV_DISP_ADAGFX_SH1106G)
+    // No support for rotation in SH1106G library
+    pGui->nDisp0W = SH1106G_LCDWIDTH;
+    pGui->nDisp0H = SH1106G_LCDHEIGHT;
+    pGui->nDispW = SH1106G_LCDWIDTH;
+    pGui->nDispH = SH1106G_LCDHEIGHT;
+
+  #elif defined(DRV_DISP_ADAGFX_SH1107)
+    // No support for rotation in SH1107 library
+    pGui->nDisp0W = SH1107_LCDWIDTH;
+    pGui->nDisp0H = SH1107_LCDHEIGHT;
+    pGui->nDispW = SH1107_LCDWIDTH;
+    pGui->nDispH = SH1107_LCDHEIGHT;	
+
   #elif defined(DRV_DISP_ADAGFX_ST7735)
     // TODO: To support ST7789, init() is called with the display dimensions
     //       instead of initR() with the initialization enumeration.
